@@ -1,16 +1,30 @@
 // from data.js
-var tableData = data;
-var tableID = d3.select('ufo-table')
-var tableBodyID = tableID.select("tbody")
+var tableID = d3.select('table');
+var tableBodyID = tableID.select("tbody");
 
+var submitBtn = d3.select("#submit");
 
 // YOUR CODE HERE!
-data.forEach(function(ufoDataDisp) {
-//   console.log(ufoDataDisp);
+data.forEach((ddisplay) => {
   var row = tableBodyID.append("tr");
-  Object.entries(ufoDataDisp).forEach(function([key, value]) {
-    // console.log(key, value);    
-    var cell = tableBodyID.append("td");
+  Object.entries(ddisplay).forEach(([key, value]) => {
+    var cell = row.append("td");
     cell.text(value);
   });
 });
+
+submitBtn.on("click",function(){
+
+    var inputBox = d3.select("datetime");
+    var inputDate = inputBox.property("value");
+    var filterData = data.filter(alien => alien.datetime === inputDate)    ;
+
+    filterData.forEach((ddisplay) => {
+    var row = tableBodyID.append("tr");
+    Object.entries(ddisplay).forEach(([key, value]) => {
+        var cell = row.append("td");
+        cell.text(value);
+    });
+    });
+})
+
